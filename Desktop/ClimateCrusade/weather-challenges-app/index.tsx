@@ -1,7 +1,7 @@
 import { registerRootComponent } from 'expo';
 import React from 'react';
 import { AuthProvider } from './src/context/AuthContext';
-import App from './App';
+import { ExpoRoot } from 'expo-router';
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,
@@ -10,7 +10,7 @@ import App from './App';
 function Root() {
   return (
     <AuthProvider>
-      <App />
+      <ExpoRoot context={require.context('./app')} />
     </AuthProvider>
   );
 }
