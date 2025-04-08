@@ -1,42 +1,22 @@
-import { Tabs } from 'expo-router';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Stack } from 'expo-router';
+import { AuthProvider, useAuth } from '../src/context/AuthContext';
+
+const InitialLayout = () => {
+  // We'll use the AuthProvider's context in the group layouts
+  // This root layout just sets up the Stack for the groups
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(app)" />
+    </Stack>
+  );
+};
 
 export default function RootLayout() {
   return (
-    <SafeAreaProvider>
-      <Tabs
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#f5f5f5',
-          },
-          headerTintColor: '#333',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          tabBarActiveTintColor: '#2563eb',
-          tabBarInactiveTintColor: '#64748b',
-        }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-              <Ionicons name="home-outline" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="challenges"
-          options={{
-            title: 'Challenges',
-            tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-              <Ionicons name="trophy-outline" size={size} color={color} />
-            ),
-          }}
-        />
-      </Tabs>
-    </SafeAreaProvider>
+    <AuthProvider>
+      <InitialLayout />
+    </AuthProvider>
   );
 } 
